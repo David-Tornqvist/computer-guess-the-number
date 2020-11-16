@@ -1,5 +1,7 @@
-let MAX_NUMBER = 100
+let MAX_NUMBER = 16
 let MIN_NUMBER = 0
+
+let utterance;
 
 const number = random(MIN_NUMBER,MAX_NUMBER);
     
@@ -24,6 +26,8 @@ function toHigh (){
     setGuess();
     log();
     setMessage(`Is it ${Math.floor(guess)}?`);
+    utterance = new SpeechSynthesisUtterance(`Is it ${Math.floor(guess)}?`);
+    speechSynthesis.speak(utterance);
 }
 
 document.getElementById('too-low-btn').addEventListener('click',toLow);
@@ -34,12 +38,16 @@ function toLow () {
     setGuess();
     log();
     setMessage(`Is it ${Math.floor(guess)}?`);
+    utterance = new SpeechSynthesisUtterance(`Is it ${Math.floor(guess)}?`);
+    speechSynthesis.speak(utterance);
 }
 
 document.getElementById("correct-btn").addEventListener("click", correct);
 
 function correct () {
     setMessage(`Well played, the correct nummber was ${Math.floor(guess)} and ${guesses} guesses where required`);
+    utterance = new SpeechSynthesisUtterance(`Well played, the correct nummber was ${Math.floor(guess)} and ${guesses} guesses where required`);
+    speechSynthesis.speak(utterance);
 }
 
 function setMessage(msg) {
@@ -52,7 +60,9 @@ function start() {
 
     guess = MIN_NUMBER + (MAX_NUMBER - MIN_NUMBER)/2;
 
-    setMessage(`Is it ${guess}?`)
+    setMessage(`Is it ${guess}?`);
+    utterance = new SpeechSynthesisUtterance(`Is it ${guess}?`);
+    speechSynthesis.speak(utterance);
 
     console.log(bot);
 
