@@ -1,9 +1,9 @@
-let MAX_NUMBER = 16
+let MAX_NUMBER = 17
 let MIN_NUMBER = 0
 
 let utterance;
 
-const number = random(MIN_NUMBER,MAX_NUMBER);
+const number = random(MIN_NUMBER,MAX_NUMBER-1);
     
 console.log(number);
 
@@ -16,7 +16,7 @@ let bot = false;
 
 
 
-document.getElementById("instructions").innerHTML = `Think of a number between ${MIN_NUMBER} and ${MAX_NUMBER}`;
+document.getElementById("instructions").innerHTML = `Think of a number between ${MIN_NUMBER} and ${MAX_NUMBER-1}`;
 
 document.getElementById('too-high-btn').addEventListener('click', toHigh);
 
@@ -60,8 +60,8 @@ function start() {
 
     guess = MIN_NUMBER + (MAX_NUMBER - MIN_NUMBER)/2;
 
-    setMessage(`Is it ${guess}?`);
-    utterance = new SpeechSynthesisUtterance(`Is it ${guess}?`);
+    setMessage(`Is it ${Math.floor(guess)}?`);
+    utterance = new SpeechSynthesisUtterance(`Is it ${Math.floor(guess)}?`);
     speechSynthesis.speak(utterance);
 
     console.log(bot);
