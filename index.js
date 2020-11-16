@@ -1,32 +1,46 @@
-let MAX_NUMBER = 200
-let MIN_NUMBER = 100
+let MAX_NUMBER = 100
+let MIN_NUMBER = 0
+
+const number = random(MIN_NUMBER,MAX_NUMBER);
+    
+console.log(number);
 
 
 let guesses = 1;
 
 let guess;
 
-let isBot;
+let bot = false;
+
+
 
 document.getElementById("instructions").innerHTML = `Think of a number between ${MIN_NUMBER} and ${MAX_NUMBER}`;
 
-document.getElementById('too-high-btn').addEventListener('click', function () {
+document.getElementById('too-high-btn').addEventListener('click', toHigh);
+
+function toHigh (){
+    console.log("test");
     MAX_NUMBER = guess;
     setGuess();
     log();
     setMessage(`Is it ${Math.floor(guess)}?`);
-});
+}
 
-document.getElementById('too-low-btn').addEventListener('click', function () {
+document.getElementById('too-low-btn').addEventListener('click',toLow);
+
+function toLow () {
+    console.log("test");
     MIN_NUMBER = guess;
     setGuess();
     log();
     setMessage(`Is it ${Math.floor(guess)}?`);
-});
+}
 
-document.getElementById("correct-btn").addEventListener("click", function () {
-    setMessage(`Well played, the correct nummber was ${guess} and ${guesses} guesses where required`);
-});
+document.getElementById("correct-btn").addEventListener("click", correct);
+
+function correct () {
+    setMessage(`Well played, the correct nummber was ${Math.floor(guess)} and ${guesses} guesses where required`);
+}
 
 function setMessage(msg) {
     document.getElementById('message').innerText = msg;
@@ -39,17 +53,28 @@ function start() {
     guess = MIN_NUMBER + (MAX_NUMBER - MIN_NUMBER)/2;
 
     setMessage(`Is it ${guess}?`)
+
+    console.log(bot);
+
+    if(bot === true){
+        window.setInterval(() => {
+            console.log(guess);
+            console.log(number)
+            if(number === Math.floor(guess)){correct();}
+            if(number > Math.floor(guess)){toLow();}
+            if(number < Math.floor(guess)){toHigh();}    
+        }, 1000);
+
+
+    }
+    
+
+  
 }
 
-function bot() {
-    document.getElementById('before-start').style.display = 'none';
-    document.querySelector('main').style.display = 'block';
 
-    guess = MIN_NUMBER + (MAX_NUMBER - MIN_NUMBER)/2;
 
-    setMessage(`Is it ${guess}?`)
-    isbot = true;
-}
+
 
 function setGuess () {
     guess = MIN_NUMBER + (MAX_NUMBER - MIN_NUMBER)/2;
@@ -68,25 +93,30 @@ function random(min,max) {
 
 
 
-if(isbot === true){
-
-    const number = random(MIN_NUMBER,MAX_NUMBER);
-
-    console.log(number);
-
-    document.setInterval(() => {
-    
-    }, 1000);
-}
 
 
 document
     .getElementById('start-btn')
     .addEventListener('click', start);
 
-document
-    .getElementById('bot')
-    .addEventListener('click', bot);
+
+
+
+
+
+document.getElementById("bot").addEventListener("click",() => {
+    if(bot === false) {
+        document.getElementById("bot").innerHTML = "Bot:Enabled";
+    }
+
+    if(bot === true) {
+        document.getElementById("bot").innerHTML = "Bot:Disabled";
+    }
+
+    bot = !bot;
+});
+
+
 
 
 
